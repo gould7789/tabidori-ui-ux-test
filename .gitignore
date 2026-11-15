@@ -1,0 +1,9 @@
+# 비밀값 — .env와 그 백업(.env.bak 등)은 올리지 않고, 예시 파일만 올린다
+.env
+.env.*
+!.env.example
+.cache/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
