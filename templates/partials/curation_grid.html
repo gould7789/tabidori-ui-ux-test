@@ -14,6 +14,7 @@
     <div class="cm-card-photo">
       <img src="{{ s.img }}" alt="{{ s.name }}" loading="lazy" referrerpolicy="no-referrer">
       <span class="cm-card-credit">사진: Wikimedia Commons</span>
+      {% if s.closed %}<span class="cm-card-closed">{{ dow }}요일 휴무</span>{% endif %}
     </div>
     <div class="cm-card-body">
       <span class="cm-card-name">{{ s.name }}</span>
@@ -21,14 +22,15 @@
       <div class="cm-card-foot">
         <span class="cm-card-tags">
           {% for t in s.tags %}<span class="cm-card-tag{{ ' on' if t in active }}">{{ t }}</span>{% endfor %}
-          {% if s.closed %}<span class="cm-card-tag closed">{{ dow }}요일 휴무</span>{% endif %}
         </span>
-        <button type="button" class="cm-card-add" data-name="{{ s.name }}" data-closed="{{ '1' if s.closed else '' }}">담기</button>
+        {% if s.added %}<button type="button" class="cm-card-add done" disabled>담음 ✓</button>
+        {% else %}<button type="button" class="cm-card-add" data-id="{{ s.id }}" data-name="{{ s.name }}" data-closed="{{ '1' if s.closed else '' }}">담기</button>{% endif %}
       </div>
     </div>
   </div>
   {% else %}
   <div class="cm-nomatch">일치하는 큐레이션 스팟이 없어요 — 아래 자유검색으로 직접 찾아보세요.</div>
   {% endfor %}
+  {% if nodate %}<div class="cm-hiddennote">날짜를 정하면 그날 휴무인 곳을 표시해요</div>{% endif %}
   {% if hidden_closed %}<div class="cm-hiddennote">휴무 스팟 {{ hidden_closed }}곳을 숨겼어요</div>{% endif %}
 </div>
